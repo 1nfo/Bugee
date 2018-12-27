@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Bugee - Register</title>
+
+    <!-- Bootstrap core CSS-->
+    <link href="{{ url_for('static', filename='vendor/bootstrap/css/bootstrap.min.css')}}" rel="stylesheet">
+
+    <!-- Custom fonts for this template-->
+    <link href="{{ url_for('static', filename='vendor/fontawesome-free/css/all.min.css')}}" rel="stylesheet"
+          type="text/css">
+
+    <!-- Custom styles for this template-->
+    <link href="{{ url_for('static', filename='css/sb-admin.css')}}" rel="stylesheet">
+
+</head>
+
+<body class="bg-dark">
+
+<div class="container">
+    <div class="card card-register mx-auto mt-5">
+        <div class="card-header">Register an Account</div>
+        <div class="card-body">
+            <div id="divErrMsg" class="form-group">
+                <input class="btn btn-warning btn-block" readonly value="{{err_msg}}">
+            </div>
+            <form id="loginForm" method="POST">
+                <div class="form-group">
+                    <div class="form-label-group">
+                        <input type="text" id="inputUsername" class="form-control" placeholder="Username"
+                               name="{{username}}" required="required">
+                        <label for="inputUsername">Username</label>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="form-row">
+                        <div class="col-md-6">
+                            <div class="form-label-group">
+                                <input type="password" id="inputPassword" class="form-control" placeholder="Password"
+                                       name="{{password}}" required="required">
+                                <label for="inputPassword">Password</label>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-label-group">
+                                <input type="password" id="confirmPassword" class="form-control"
+                                       placeholder="Confirm Password" required="required">
+                                <label for="confirmPassword">Confirm password </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <a class="btn btn-primary btn-block" href="#" id="registerBtn">Register</a>
+            </form>
+            <div class="text-center">
+                <a class="d-block small mt-3" href="/login">Login Page</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Bootstrap core JavaScript-->
+<script src="{{ url_for('static', filename='vendor/jquery/jquery.min.js')}}"></script>
+<script src="{{ url_for('static', filename='vendor/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
+
+<!-- Core plugin JavaScript-->
+<script src="{{ url_for('static', filename='vendor/jquery-easing/jquery.easing.min.js')}}"></script>
+
+<script type="text/javascript">
+      if($("#divErrMsg input").val() == ""){
+        $("#divErrMsg").remove()
+      }
+
+      var nameValidator = new RegExp(/^\w[\w\d]{3,9}/)
+      var pwValidator = new RegExp(/.{6,30}/)
+      $("#registerBtn").click(function(){
+        if (!nameValidator.test($("#inputUsername").val())) {
+            alert("Your username must at least have 4 characters ")
+        } else if (!pwValidator.test($("#inputPassword").val()) ) {
+            alert("password length has to be 6-30")
+        } else if ($("#confirmPassword").val() != $("#inputPassword").val()){
+            alert("please confirm you entered the password")
+        } else {
+            $("#loginForm").submit()
+            return 0
+        }
+        $("#inputPassword").val("")
+        $("#confirmPassword").val("")
+      })
+</script>
+
+</body>
+
+</html>

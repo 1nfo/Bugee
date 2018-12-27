@@ -1,0 +1,8 @@
+*.pyc
+*.db
+*.log
+.idea
+venv/
+react/node_modules/*
+*bundle.js
+app/bootstrap_template/*

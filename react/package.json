@@ -1,0 +1,38 @@
+{
+  "author": "xyz",
+  "dependencies": {
+    "boostrap": "^2.0.0",
+    "create-react-class": "^15.6.3",
+    "css-loader": "^2.1.0",
+    "immutable": "^4.0.0-rc.12",
+    "moment": "^2.23.0",
+    "react": "^16.6.3",
+    "react-autobind": "^1.0.6",
+    "react-bootstrap": "^0.32.4",
+    "react-data-grid": "^5.0.5",
+    "react-data-grid-addons": "^5.0.5",
+    "react-datepicker": "^2.0.0",
+    "react-dom": "^16.6.3",
+    "react-skylight": "^0.5.1",
+    "style-loader": "^0.23.1"
+  },
+  "description": "web client react js",
+  "devDependencies": {
+    "babel-core": "^6.0.0",
+    "babel-loader": "^7.0.4",
+    "babel-preset-env": "^1.7.0",
+    "babel-preset-react": "^6.24.1",
+    "gulp-babel": "^8.0.0",
+    "webpack": "^4.26.1",
+    "webpack-bundle-tracker": "^0.4.2-beta",
+    "webpack-cli": "^3.1.2"
+  },
+  "license": "-",
+  "name": "budgee-front",
+  "repository": "-",
+  "scripts": {
+    "build": "webpack --config webpack.config.js --progress --colors --mode development",
+    "watch": "webpack --config webpack.config.js --watch --mode development"
+  },
+  "version": "0.0.1"
+}
