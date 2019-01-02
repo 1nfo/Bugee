@@ -4,6 +4,7 @@ from enum import Enum
 from functools import wraps
 from inspect import signature
 from json import dumps, JSONEncoder
+from time import mktime
 from typing import Callable
 
 from flask import current_app
@@ -65,7 +66,7 @@ class CustomizeEncoder(JSONEncoder):
         if isinstance(o, Decimal):
             return float(o)
         if isinstance(o, date):
-            return o.isoformat()
+            return int(mktime(o.timetuple()) * 1000)
         if isinstance(o, set):
             return list(o)
         if isinstance(o, Model):
@@ -135,7 +136,7 @@ class ArgumentTransformer:
 
 # TODO: MOVE TO MODULE
 def t_date(o):
-    return date.fromtimestamp(int(o)/1000)
+    return date.fromtimestamp(int(o) / 1000)
 
 
 def t_decimal(o):
@@ -147,10 +148,6 @@ def t_delta(d):
     parameters = dict(zip(d.keys(), map(int, d.values())))
     return relativedelta(**parameters)
 
-
-def t_date_string(d):
-    from datetime import datetime
-    return datetime.strptime(d, '%Y-%m-%d').date()
 
 def t_nullable_id(i):
     return int(i) if str(i).strip().isdigit() else None

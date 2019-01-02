@@ -24,12 +24,7 @@ export default class BudgetCard extends React.Component {
             .then((r) => r.json())
             .then((rows) => rows.map(function(row) {
                 var cost = row.Cost
-                return {    
-                    date: new Date(cost.cost_date).toISOString().split('T')[0],
-                    id: cost.id,
-                    amount: cost.amount,
-                    note: cost.note
-                }
+                return cost
             }))
             .then((rows) => this.setState({ rows }))
     }
@@ -47,7 +42,7 @@ export default class BudgetCard extends React.Component {
                             Budget {this.name} <span className='pull-right'>{this.balance}/{this.amount}</span>
                             <ProgressBar now={this.balance *100 /this.amount}/>
                             <br/>
-                            {this.start_date}  --  {this.end_date}
+                            {new Date(this.start_date).toLocaleDateString()}  --  {new Date(this.end_date).toLocaleDateString()}
                         </div>
                     </div>
                 </div>

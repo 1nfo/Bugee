@@ -34,7 +34,7 @@ const DateFormatter = function(props){
     const click = () => props.row.del(props.row.id)
     return (
         <div className="container">
-            <span>{props.value}</span> 
+            <span>{new Date(props.value).toLocaleDateString()}</span> 
             <a role='button' onClick={click} className='text-danger font-weight-bold float-right'>X</a>
         </div>
     )
@@ -70,7 +70,7 @@ class DateEditor extends React.Component {
     }
 
     getValue() {
-        return { date:this.state.date }
+        return { cost_date: this.state.date }
     }
 
     getInputNode() {
@@ -78,23 +78,24 @@ class DateEditor extends React.Component {
     }
 
     handleChange(event) {
-        this.setState({ date: event.target.value })
+        var arr = event.target.value.split('/')
+        var timestamp = new Date(arr[2], arr[0] - 1, arr[1]).getTime()
+        if (!isNaN(timestamp)) {
+            this.setState({ date: timestamp })
+        }
     }
 
     render() {
         return (
-            <input type='text' onChange={this.handleChange} value={this.state.date} />
+            <input type='text' onChange={this.handleChange} value={new Date(this.state.date).toLocaleDateString()} />
         )
     }
 }
 
 const reformatInput = function(input){
-    if('date' in input){
-        var date = new Date(input.date)
-        if(isNaN(date.getTime())){
-            delete input.date
-        } else {
-            input.date = date.toISOString().split('T')[0]
+    if('cost_date' in input){
+        if (isNaN(input.cost_date)) {
+            delete input.cost_date
         }
     }
     if('amount' in input){
@@ -134,7 +135,7 @@ export default class CostTable extends React.Component {
 
         this.cols = [
             {
-                key: "date",
+                key: "cost_date",
                 name: "Cost Date",
                 width: 250,
                 resizable: true,
@@ -222,7 +223,7 @@ export default class CostTable extends React.Component {
     addRow(row){
         var rows = this.state.rows.slice()
         var rowsToSave = this.state.rowsToSave.slice()
-        rows.push({ id: "new-"+Date.now(), date: new Date().toISOString().split('T')[0], amount: 0, note: '' })
+        rows.push({ id: "new-" + Date.now(), cost_date: Date.now(), amount: 0, note: '' })
         rowsToSave.push(row.newRowIndex)
         this.setState({ rows, rowsToSave})
     }

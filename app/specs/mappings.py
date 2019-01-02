@@ -40,13 +40,13 @@ upsert_costs = {
     'key_mappings': {
         'cost_id': 'id',
         'amount': 'amount',
-        'cost_date': 'date',
+        'cost_date': 'cost_date',
         'note': 'note'
     },
     'value_mappings': {
         'cost_id': 't_nullable_id',
         'amount': 't_decimal',
-        'cost_date': 't_date_string',
+        'cost_date': 't_date',
         'note': 'str'
     }
 }
