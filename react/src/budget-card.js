@@ -34,6 +34,8 @@ export default class BudgetCard extends React.Component {
     }
 
     render() {
+        var start_date = new Date(this.start_date).toLocaleDateString()
+        var end_date = new Date(this.end_date).toLocaleDateString()
         return (
             <div>
                 <div className='col-sm-6 col-xl-3 h-100 mb-1 ml-1'>
@@ -42,12 +44,12 @@ export default class BudgetCard extends React.Component {
                             Budget {this.name} <span className='pull-right'>{this.balance}/{this.amount}</span>
                             <ProgressBar now={this.balance *100 /this.amount}/>
                             <br/>
-                            {new Date(this.start_date).toLocaleDateString()}  --  {new Date(this.end_date).toLocaleDateString()}
+                            {start_date}  --  {end_date}
                         </div>
                     </div>
                 </div>
                 <SkyLight hideOnOverlayClicked ref="budget_details" title={this.popup_title()}>
-                    <p className='text-right'>from {this.start_date} to {this.end_date}</p>
+                    <p className='text-right'>from {start_date} to {end_date}</p>
                     <CostTable id={this.id} rows={this.state.rows} refresh={this.getAllCosts}/>
                 </SkyLight>
             </div>
